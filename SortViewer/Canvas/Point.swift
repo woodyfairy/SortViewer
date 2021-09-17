@@ -7,12 +7,23 @@
 
 import UIKit
 
-class Point {
+class Point : Comparable {
+    //data
     var value : Int
     var color : UIColor
     var prePos : CGPoint
     var currentPos : CGPoint
     
+    //排序
+    static func == (lhs: Point, rhs: Point) -> Bool {
+        return lhs.value == rhs.value
+    }
+    static func < (lhs: Point, rhs: Point) -> Bool {
+        return lhs.value < rhs.value
+    }
+    var preIndex : Int = 0
+    
+    //动画
     private var startTime : Date? = nil
     private var startPos : CGPoint
     private var endPos : CGPoint

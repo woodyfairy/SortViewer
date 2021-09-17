@@ -8,10 +8,12 @@
 import UIKit
 
 class CanvasView: UIView {
-    //MARK:- ViewSet
+    //MARK:- Options
     var pointSize : CGFloat = 10
     var fadeScale : CGFloat = 0.85
     var padding : UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
+    var sortStepTime : TimeInterval = 0.01
+    
     
     //MARK:- TouchTest
     let TouchTest : Bool = false
@@ -24,20 +26,26 @@ class CanvasView: UIView {
         }
     }
     
-    //MARK:- Data
-    private var isRunning = false
+    //MARK:- Sort Data
+    private var isRunning = false //是否在排序运算中
     var listPoints : [Point] = []
     var minColor : UIColor = UIColor(red: 0.2, green: 0.5, blue: 0.8, alpha: 1)
     var maxColor : UIColor = UIColor(red: 1, green: 0.3, blue: 0.1, alpha: 1)
-    func reset(number : Int = 100) {
-        isRunning = false
-        curImage = nil
-        listPoints.removeAll()
+    func reset(number : Int = 30) {
+        stop()
+        if TouchTest {
+            isRunning = true //默认开始
+            testPoint.resetPos(pos: CGPoint(x: self.bounds.width/2, y: self.bounds.height/2))
+        }
         //生成
         for i in 0..<number {
             let percent : CGFloat = CGFloat(i) / CGFloat(number-1)
             let p = Point(value: i, pos: CGPoint.zero, color: lerpColor(startColor: minColor, endColor: maxColor, weight: percent))
             listPoints.append(p)
+            
+            let view = UIView()
+            view.layer.cornerRadius = pointSize/2
+            self.addSubview(view)
         }
         //打乱
         listPoints.shuffle()
@@ -45,9 +53,20 @@ class CanvasView: UIView {
         //位置
         for i in 0..<number {
             let p = listPoints[i]
+            p.preIndex = i //重置index
             p.resetPos(pos: getPos(index: i, value: p.value))
         }
         self.setNeedsDisplay() //初次绘制
+    }
+    private func stop(forStart : Bool = false){
+        isRunning = false
+        curImage = nil
+        if !forStart {
+            listPoints.removeAll()
+        }
+        timer?.invalidate()
+        timer = nil
+        sortFunction = nil
     }
     private func getPos(index : Int, value : Int) -> CGPoint {
         let number = listPoints.count - 1
@@ -58,10 +77,42 @@ class CanvasView: UIView {
         let valuePerent : CGFloat = CGFloat(value) / CGFloat(number)
         return CGPoint(x: padding.left + (self.bounds.width - padding.left - padding.right) * percent, y: self.bounds.height - padding.bottom - (self.bounds.height - padding.top - padding.bottom) * valuePerent)
     }
-    func startRunning() {
-        isRunning = true
-    }
     
+    //start sort
+    private var timer : Timer? = nil
+    private var sortFunction : SortBase<Point>? = nil
+    func startRunning<T : SortBase<Point>>(sortFunctionType : T.Type, showChecking : Bool = false) {
+        stop(forStart: true)
+        isRunning = true
+        
+        sortFunction = sortFunctionType.init(dataList: self.listPoints, showChecking: showChecking)
+        sortFunction?.start()
+        
+        timer = Timer(timeInterval: sortStepTime, target: self, selector: #selector(nextStep), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer!, forMode: .common)
+    }
+    @objc private func nextStep(){
+        if self.superview == nil {
+            stop()
+            return
+        }
+        //print("next")
+        if let sortFunction = sortFunction {
+            if sortFunction.isFinished {
+                timer?.invalidate()
+                timer = nil
+            }
+            
+            listPoints = sortFunction.nextStep() //更新数组
+            for i in 0..<listPoints.count {
+                let p = listPoints[i]
+                if p.preIndex != i {
+                    p.preIndex = i
+                    p.animteTo(getPos(index: i, value: p.value))
+                }
+            }
+        }
+    }
     
     
     
@@ -79,46 +130,48 @@ class CanvasView: UIView {
         initView()
     }
     
-    private var displayLink : CADisplayLink? = nil //这个不可自动释放
+    private var displayLink : CADisplayLink? = nil //这个不会自动释放
     private var curImage : UIImage?
     
-    private func initView(){
+    func initView(){
         displayLink = CADisplayLink(target: self, selector: #selector(update))
         //displayLink?.preferredFramesPerSecond = 30
         displayLink?.add(to: RunLoop.main, forMode: .common)
-        
-        if TouchTest {
-            isRunning = true //默认开始
-            testPoint.resetPos(pos: CGPoint(x: self.bounds.width/2, y: self.bounds.height/2))
-        }
     }
     
     @objc private func update(){
-        if self.superview != nil {
-            if !isRunning {
-                return
-            }
-            
-            if TouchTest {
-                testPoint.update()
-            }
-            
-            for point in listPoints {
-                point.update()
-            }
-            
-            self.setNeedsDisplay()
-            
-            //记录当前画面
-            UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, UIScreen.main.scale)
-            if let ctx = UIGraphicsGetCurrentContext() {
-                self.layer.render(in: ctx)
-                self.curImage = UIGraphicsGetImageFromCurrentImageContext();
-            }
-            UIGraphicsEndImageContext();
-        }else{
+        if self.superview == nil {
+            //如果从父view移除，则要手动从RunLoop移除displayLink，防止内存不释放
+            //如果移除后还需要再次使用，手动调用initView
+            //不通过isRunning控制：因为isRunning只代表排序运算的运行，运算结束后，还需要画图进行减隐效果
             displayLink?.invalidate()
+            displayLink?.remove(from: RunLoop.main, forMode: .common)
+            
+            stop()
+            return
         }
+        
+        if !isRunning {
+            return
+        }
+        
+        if TouchTest {
+            testPoint.update()
+        }
+        
+        for point in listPoints {
+            point.update()
+        }
+        
+        self.setNeedsDisplay()
+        
+        //记录当前画面
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, UIScreen.main.scale)
+        if let ctx = UIGraphicsGetCurrentContext() {
+            self.layer.render(in: ctx)
+            self.curImage = UIGraphicsGetImageFromCurrentImageContext();
+        }
+        UIGraphicsEndImageContext();
     }
     
     override func draw(_ rect: CGRect) {
@@ -131,7 +184,7 @@ class CanvasView: UIView {
             self.curImage?.draw(at: CGPoint.zero, blendMode: .normal, alpha: fadeScale)
             
             if TouchTest {
-                if (testPoint.prePos == testPoint.currentPos) {
+                if (distance(p1: testPoint.prePos, p2: testPoint.currentPos) <= pointSize/4) {
                     ctx.move(to: testPoint.prePos)
                     ctx.addLine(to: testPoint.currentPos)
                     ctx.setStrokeColor(testPoint.color.cgColor)
@@ -164,8 +217,8 @@ class CanvasView: UIView {
                 }
             }
             
-            for p in listPoints{
-                if (p.prePos == p.currentPos) {
+            for (i, p) in listPoints.enumerated() {
+                if (distance(p1: p.prePos, p2: p.currentPos) <= pointSize/4) {
                     ctx.move(to: p.prePos)
                     ctx.addLine(to: p.currentPos)
                     ctx.setStrokeColor(p.color.cgColor)
@@ -195,6 +248,17 @@ class CanvasView: UIView {
                     let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: locations)
                     ctx.drawLinearGradient(gradient!, start: p.prePos, end: p.currentPos, options: CGGradientDrawingOptions.drawsAfterEndLocation) //需要延伸颜色
                     ctx.restoreGState()
+                }
+                
+                //checking
+                if i == sortFunction?.checkingIndex || i == sortFunction?.currentCheck {
+                    ctx.addArc(center: p.currentPos, radius: pointSize, startAngle: 0, endAngle: .pi*2, clockwise: true)
+                    ctx.setStrokeColor(p.color.cgColor)
+                    ctx.setLineWidth(pointSize/4)
+                    ctx.strokePath()
+                    ctx.setLineWidth(pointSize) //恢复
+//                    ctx.setFillColor(p.color.cgColor)
+//                    ctx.fillPath()
                 }
             }
         }
@@ -226,4 +290,8 @@ func lerpColor(startColor : UIColor, endColor : UIColor, weight : CGFloat) -> UI
     
     return UIColor(red: start_R + (end_R - start_R) * weight, green: start_G + (end_G - start_G) * weight, blue: start_B + (end_B - start_B) * weight, alpha: start_A + (end_A - start_A) * weight)
     
+}
+
+func distance(p1 : CGPoint, p2 : CGPoint) -> CGFloat {
+    return sqrt( (p2.x-p1.x)*(p2.x-p1.x) + (p2.y-p1.y)*(p2.y-p1.y) )
 }

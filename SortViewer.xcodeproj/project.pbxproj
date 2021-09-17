@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8844AF4526F43909001C0674 /* SortBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8844AF4426F43909001C0674 /* SortBase.swift */; };
+		8844AF4726F43F6F001C0674 /* BubbleSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8844AF4626F43F6F001C0674 /* BubbleSort.swift */; };
+		8844AF4926F49CE6001C0674 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8844AF4826F49CE6001C0674 /* OptionViewController.swift */; };
 		88638E3726F2ED1300D68C1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88638E3626F2ED1300D68C1F /* AppDelegate.swift */; };
 		88638E3926F2ED1300D68C1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88638E3826F2ED1300D68C1F /* SceneDelegate.swift */; };
 		88638E3B26F2ED1300D68C1F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88638E3A26F2ED1300D68C1F /* ViewController.swift */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8844AF4426F43909001C0674 /* SortBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBase.swift; sourceTree = "<group>"; };
+		8844AF4626F43F6F001C0674 /* BubbleSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSort.swift; sourceTree = "<group>"; };
+		8844AF4826F49CE6001C0674 /* OptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
 		88638E3326F2ED1300D68C1F /* SortViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SortViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88638E3626F2ED1300D68C1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		88638E3826F2ED1300D68C1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8844AF4326F437C3001C0674 /* SortFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				8844AF4426F43909001C0674 /* SortBase.swift */,
+				8844AF4626F43F6F001C0674 /* BubbleSort.swift */,
+			);
+			path = SortFunctions;
+			sourceTree = "<group>";
+		};
 		88638E2A26F2ED1300D68C1F = {
 			isa = PBXGroup;
 			children = (
@@ -60,10 +75,12 @@
 		88638E3526F2ED1300D68C1F /* SortViewer */ = {
 			isa = PBXGroup;
 			children = (
+				8844AF4326F437C3001C0674 /* SortFunctions */,
 				88638E4A26F2ED7000D68C1F /* Canvas */,
 				88638E3626F2ED1300D68C1F /* AppDelegate.swift */,
 				88638E3826F2ED1300D68C1F /* SceneDelegate.swift */,
 				88638E3A26F2ED1300D68C1F /* ViewController.swift */,
+				8844AF4826F49CE6001C0674 /* OptionViewController.swift */,
 				88638E3C26F2ED1300D68C1F /* Main.storyboard */,
 				88638E3F26F2ED1400D68C1F /* Assets.xcassets */,
 				88638E4126F2ED1400D68C1F /* LaunchScreen.storyboard */,
@@ -155,6 +172,9 @@
 				88638E4E26F2F14D00D68C1F /* Point.swift in Sources */,
 				88638E3726F2ED1300D68C1F /* AppDelegate.swift in Sources */,
 				88638E4C26F2F13E00D68C1F /* CanvasView.swift in Sources */,
+				8844AF4526F43909001C0674 /* SortBase.swift in Sources */,
+				8844AF4926F49CE6001C0674 /* OptionViewController.swift in Sources */,
+				8844AF4726F43F6F001C0674 /* BubbleSort.swift in Sources */,
 				88638E3926F2ED1300D68C1F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
