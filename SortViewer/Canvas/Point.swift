@@ -62,10 +62,11 @@ class Point : Comparable {
         currentPos = pos
     }
     
-    func animteTo(_ toPos : CGPoint, fromPos : CGPoint? = nil, duration : TimeInterval = 0.15, fromNowPos : Bool = true) {
-        if !fromNowPos {
-            //先移动到之前的目标点
-            currentPos = endPos
+    private var jumpTo : CGPoint? = nil //在快速的情况下，同一个点的连续移动会使其一直处于初始运动状态，本应很快的点反而移动很慢
+    func animteTo(_ toPos : CGPoint, fromPos : CGPoint? = nil, duration : TimeInterval = 0.15, jump : Bool = true) {
+        if jump {
+            //设置动画时设置第一次是否为直接跳跃
+            jumpTo = endPos
         }
         isAnimating = true
         startTime = Date()
@@ -84,8 +85,15 @@ class Point : Comparable {
         prePos = currentPos //重设pre
         if !isAnimating {return}
         
-        let funcPercent = getTimingFunction(percent: CGFloat(percent))
-        currentPos = CGPoint(x: startPos.x + (endPos.x - startPos.x) * funcPercent, y: startPos.y + (endPos.y - startPos.y) * funcPercent)
+        if let jumpTo = jumpTo {
+            //首次移动（如果之前的动画还没有结束），直接跳到结束位置
+            startPos = jumpTo
+            currentPos = jumpTo
+            self.jumpTo = nil
+        }else{
+            let funcPercent = getTimingFunction(percent: CGFloat(percent))
+            currentPos = CGPoint(x: startPos.x + (endPos.x - startPos.x) * funcPercent, y: startPos.y + (endPos.y - startPos.y) * funcPercent)
+        }
     }
     
     private func getTimingFunction(percent : CGFloat) -> CGFloat {

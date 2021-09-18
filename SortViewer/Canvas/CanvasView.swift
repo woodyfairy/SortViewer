@@ -108,7 +108,7 @@ class CanvasView: UIView {
                 let p = listPoints[i]
                 if p.preIndex != i {
                     p.preIndex = i
-                    p.animteTo(getPos(index: i, value: p.value), fromNowPos: false) //fromNowPos=false : 否则在快速的情况下，同一个点的连续移动会很很慢
+                    p.animteTo(getPos(index: i, value: p.value)) 
                 }
             }
         }
