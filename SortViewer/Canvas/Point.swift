@@ -62,7 +62,11 @@ class Point : Comparable {
         currentPos = pos
     }
     
-    func animteTo(_ toPos : CGPoint, fromPos : CGPoint? = nil, duration : TimeInterval = 0.15) {
+    func animteTo(_ toPos : CGPoint, fromPos : CGPoint? = nil, duration : TimeInterval = 0.15, fromNowPos : Bool = true) {
+        if !fromNowPos {
+            //先移动到之前的目标点
+            currentPos = endPos
+        }
         isAnimating = true
         startTime = Date()
         endPos = toPos

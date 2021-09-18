@@ -25,10 +25,6 @@ class InsertionSort<T : Comparable>: SortBase<T> {
         } _: {
             i += 1
         } _: {
-            if showChecking {
-                checkingIndex = i
-            }
-            
             let ret2 = For {
                 //倒序比较：如果默认就比最大的大就不用执行了，如果从0开始的直接比第一个还小，不执行就不对了
                 return j >= 0 && dataList[i] < dataList[j]
@@ -36,12 +32,14 @@ class InsertionSort<T : Comparable>: SortBase<T> {
                 j -= 1
             } _: {
                 if showChecking {
+                    checkingIndex = i
                     currentCheck = j
                 }
                 //最后一个
                 if j == 0 || dataList[i] >= dataList[j - 1] {
                     if showChecking {
-                        checkingIndex = j + 1
+                        checkingIndex = j //插入过来
+                        currentCheck = j + 1 //之前的后移
                     }
                     let temp = dataList.remove(at: i)
                     dataList.insert(temp, at: j)

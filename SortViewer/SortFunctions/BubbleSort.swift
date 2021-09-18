@@ -31,6 +31,7 @@ class BubbleSort<T : Comparable>: SortBase<T> {
             } _: {
                 if showChecking {
                     checkingIndex = j
+                    currentCheck = j + 1
                 }
                 if dataList[j] > dataList[j + 1] {
                     self.dataList.swapAt(j, j + 1) //元素交换
