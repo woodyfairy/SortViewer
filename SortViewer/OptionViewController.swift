@@ -18,7 +18,7 @@ class OptionViewController: UIViewController {
         super.viewDidLoad()
         
         numberInput.keyboardType = .numberPad
-        timeInput.keyboardType = .numberPad
+        timeInput.keyboardType = .decimalPad
         
         if let option = option {
             numberInput.text = "\(option.number)"

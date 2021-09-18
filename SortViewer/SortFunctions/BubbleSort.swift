@@ -5,22 +5,21 @@
 //  Created by fairy on 2021/9/17.
 //
 
-import UIKit
+import Foundation
 
 class BubbleSort<T : Comparable>: SortBase<T> {
     class override var name : String {
         get {"冒泡排序"}
     }
-    
-    var count : Int = 0
-    var i : Int = 0
-    var j : Int = 0
-    override func start() {
-        count = dataList.count
+    override class var timeComplexity: String {
+        get {"O(N^2)"}
     }
     
+    var i : Int = 0
+    var j : Int = 0
+    
     override func nextStep() -> [T] {
-        let ret = For {
+        let ret1 = For {
             i < count
         } _: {
             i += 1
@@ -53,7 +52,7 @@ class BubbleSort<T : Comparable>: SortBase<T> {
             return ret2
         }
 
-        if ret == .finish {
+        if ret1 == .finish {
             isFinished = true
             checkingIndex = -1
             currentCheck = -1

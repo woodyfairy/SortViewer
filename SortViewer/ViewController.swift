@@ -10,6 +10,8 @@ import UIKit
 class Option {
     var number : Int = 20
     var sortStepTime : TimeInterval = 0.05
+//    var number : Int = 10
+//    var sortStepTime : TimeInterval = 1
     var showChecking : Bool = true
 }
 
@@ -20,7 +22,9 @@ class ViewController: UIViewController {
     var option : Option = Option()
     
     let sortTypes : [SortBase<Point>.Type] = [
-        BubbleSort<Point>.self
+        BubbleSort<Point>.self,
+        SelectionSort<Point>.self,
+        InsertionSort<Point>.self,
     ]
     
     override func viewDidLoad() {
@@ -57,10 +61,11 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "sortCell")
         if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "sortCell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "sortCell")
         }
         let type = sortTypes[indexPath.row]
         cell?.textLabel?.text = type.name
+        cell?.detailTextLabel?.text = type.timeComplexity
         
         return cell!
     }
@@ -68,6 +73,9 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.selectRow(at: nil, animated: true, scrollPosition: .none)
         let type = sortTypes[indexPath.row]
+        if canvas.isRunning {
+            self.reset()
+        }
         canvas.startRunning(sortFunctionType: type, showChecking: option.showChecking)
     }
     

@@ -15,11 +15,16 @@ class SortBase<T : Comparable> {
     class var name : String {
         get {""}
     }
+    class var timeComplexity : String {
+        get {""}
+    }
     
     var dataList : [T]
+    var count : Int
     
     required init(dataList : [T], showChecking : Bool = false) {
         self.dataList = dataList
+        self.count = dataList.count
         self.showChecking = showChecking
     }
     func start() {

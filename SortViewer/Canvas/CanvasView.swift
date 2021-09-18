@@ -27,7 +27,6 @@ class CanvasView: UIView {
     }
     
     //MARK:- Sort Data
-    private var isRunning = false //是否在排序运算中
     var listPoints : [Point] = []
     var minColor : UIColor = UIColor(red: 0.2, green: 0.5, blue: 0.8, alpha: 1)
     var maxColor : UIColor = UIColor(red: 1, green: 0.3, blue: 0.1, alpha: 1)
@@ -59,11 +58,11 @@ class CanvasView: UIView {
         self.setNeedsDisplay() //初次绘制
     }
     private func stop(forStart : Bool = false){
-        isRunning = false
-        curImage = nil
         if !forStart {
             listPoints.removeAll()
         }
+        isRunning = false
+        curImage = nil
         timer?.invalidate()
         timer = nil
         sortFunction = nil
@@ -101,6 +100,7 @@ class CanvasView: UIView {
             if sortFunction.isFinished {
                 timer?.invalidate()
                 timer = nil
+                //这里不能直接stop，否则不会有减隐
             }
             
             listPoints = sortFunction.nextStep() //更新数组
@@ -117,41 +117,29 @@ class CanvasView: UIView {
     
     
     //MARK:- Display
-    required init?(coder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
-        super.init(coder: coder)
-    }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initView()
-    }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        initView()
-    }
-    
     private var displayLink : CADisplayLink? = nil //这个不会自动释放
     private var curImage : UIImage?
     
-    func initView(){
-        displayLink = CADisplayLink(target: self, selector: #selector(update))
-        //displayLink?.preferredFramesPerSecond = 30
-        displayLink?.add(to: RunLoop.main, forMode: .common)
+    var isRunning = false //表示是否在绘制中(算法开始，绘制同时开始；算法结束，绘制不会结束)
+    {
+        didSet {
+            if isRunning {
+                if displayLink == nil {
+                    displayLink = CADisplayLink(target: self, selector: #selector(update))
+                    //displayLink?.preferredFramesPerSecond = 30
+                    displayLink?.add(to: RunLoop.main, forMode: .common)
+                }
+            }else {
+                //displayLink?.remove(from: RunLoop.main, forMode: .common)
+                displayLink?.invalidate() //包含了remove from RunLoop
+                displayLink = nil
+            }
+        }
     }
     
     @objc private func update(){
         if self.superview == nil {
-            //如果从父view移除，则要手动从RunLoop移除displayLink，防止内存不释放
-            //如果移除后还需要再次使用，手动调用initView
-            //不通过isRunning控制：因为isRunning只代表排序运算的运行，运算结束后，还需要画图进行减隐效果
-            displayLink?.invalidate()
-            displayLink?.remove(from: RunLoop.main, forMode: .common)
-            
             stop()
-            return
-        }
-        
-        if !isRunning {
             return
         }
         

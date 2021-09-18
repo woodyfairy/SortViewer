@@ -18,6 +18,8 @@
 		88638E4326F2ED1400D68C1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88638E4126F2ED1400D68C1F /* LaunchScreen.storyboard */; };
 		88638E4C26F2F13E00D68C1F /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88638E4B26F2F13E00D68C1F /* CanvasView.swift */; };
 		88638E4E26F2F14D00D68C1F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88638E4D26F2F14D00D68C1F /* Point.swift */; };
+		88906B4C26F57E0000642ED4 /* SelectionSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88906B4B26F57E0000642ED4 /* SelectionSort.swift */; };
+		88906B4E26F5AFB200642ED4 /* InsertionSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88906B4D26F5AFB200642ED4 /* InsertionSort.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		88638E4426F2ED1400D68C1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88638E4B26F2F13E00D68C1F /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		88638E4D26F2F14D00D68C1F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		88906B4B26F57E0000642ED4 /* SelectionSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSort.swift; sourceTree = "<group>"; };
+		88906B4D26F5AFB200642ED4 /* InsertionSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertionSort.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +56,8 @@
 			children = (
 				8844AF4426F43909001C0674 /* SortBase.swift */,
 				8844AF4626F43F6F001C0674 /* BubbleSort.swift */,
+				88906B4B26F57E0000642ED4 /* SelectionSort.swift */,
+				88906B4D26F5AFB200642ED4 /* InsertionSort.swift */,
 			);
 			path = SortFunctions;
 			sourceTree = "<group>";
@@ -169,12 +175,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				88638E3B26F2ED1300D68C1F /* ViewController.swift in Sources */,
+				88906B4E26F5AFB200642ED4 /* InsertionSort.swift in Sources */,
 				88638E4E26F2F14D00D68C1F /* Point.swift in Sources */,
 				88638E3726F2ED1300D68C1F /* AppDelegate.swift in Sources */,
 				88638E4C26F2F13E00D68C1F /* CanvasView.swift in Sources */,
 				8844AF4526F43909001C0674 /* SortBase.swift in Sources */,
 				8844AF4926F49CE6001C0674 /* OptionViewController.swift in Sources */,
 				8844AF4726F43F6F001C0674 /* BubbleSort.swift in Sources */,
+				88906B4C26F57E0000642ED4 /* SelectionSort.swift in Sources */,
 				88638E3926F2ED1300D68C1F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
