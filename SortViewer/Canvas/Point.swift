@@ -64,7 +64,7 @@ class Point : Comparable {
     
     private var jumpTo : CGPoint? = nil //在快速的情况下，同一个点的连续移动会使其一直处于初始运动状态，本应很快的点反而移动很慢
     func animteTo(_ toPos : CGPoint, fromPos : CGPoint? = nil, duration : TimeInterval = 0.15, jump : Bool = true) {
-        if jump {
+        if fromPos == nil && jump {
             //设置动画时设置第一次是否为直接跳跃
             jumpTo = endPos
         }
