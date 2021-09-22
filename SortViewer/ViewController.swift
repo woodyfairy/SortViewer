@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         BubbleSort<Point>.self,
         SelectionSort<Point>.self,
         InsertionSort<Point>.self,
+        HeapSort<Point>.self,
     ]
     
     override func viewDidLoad() {

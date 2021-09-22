@@ -25,6 +25,8 @@ class SelectionSort<T : Comparable>: SortBase<T> {
             i < count - 1
         } _: {
             i += 1
+            minIndex = i
+            j = i
         } _: {
             let ret2 = For {
                 j < count
@@ -59,12 +61,6 @@ class SelectionSort<T : Comparable>: SortBase<T> {
                 }else{
                     return .next
                 }
-            }
-            
-            //重置循环要放到最后
-            if ret2 == .finish {
-                minIndex = i + 1
-                j = i + 1
             }
             
             return ret2

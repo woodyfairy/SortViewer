@@ -23,6 +23,7 @@ class BubbleSort<T : Comparable>: SortBase<T> {
             i < count
         } _: {
             i += 1
+            j = 0
         } _: {
             let ret2 = For {
                 j < count - 1 - i
@@ -47,9 +48,6 @@ class BubbleSort<T : Comparable>: SortBase<T> {
                 }
             }
             
-            if ret2 == .finish {
-                j = 0 //重置循环
-            }
             return ret2
         }
 

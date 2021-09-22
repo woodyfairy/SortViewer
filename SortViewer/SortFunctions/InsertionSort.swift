@@ -12,7 +12,7 @@ class InsertionSort<T : Comparable>: SortBase<T> {
         get {"插入排序"}
     }
     override class var timeComplexity: String {
-        get {"O(N^2)"}
+        get {"O(N) - O(N^2)"}
     }
     
     //初始化
@@ -24,6 +24,7 @@ class InsertionSort<T : Comparable>: SortBase<T> {
             i < count
         } _: {
             i += 1
+            j = i - 1
         } _: {
             let ret2 = For {
                 //倒序比较：如果默认就比最大的大就不用执行了，如果从0开始的直接比第一个还小，不执行就不对了
@@ -53,11 +54,6 @@ class InsertionSort<T : Comparable>: SortBase<T> {
                 }else{
                     return .next
                 }
-            }
-            
-            //重置循环要放到最后
-            if ret2 == .finish {
-                j = i //这里在i循环之前，下一步i+=1，j就=i-1了
             }
             
             return ret2
