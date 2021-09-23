@@ -16,9 +16,9 @@ class SelectionSort<T : Comparable>: SortBase<T> {
     }
     
     //初始化
-    var i : Int = 0
-    var j : Int = 1
-    var minIndex : Int = 0
+    private var i : Int = 0
+    private var j : Int = 1
+    private var minIndex : Int = 0
     
     override func nextStep() -> [T] {
         let ret1 = For {

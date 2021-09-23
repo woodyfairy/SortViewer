@@ -16,8 +16,8 @@ class InsertionSort<T : Comparable>: SortBase<T> {
     }
     
     //初始化
-    var i : Int = 1
-    var j : Int = 0
+    private var i : Int = 1
+    private var j : Int = 0
     
     override func nextStep() -> [T] {
         let ret1 = For {

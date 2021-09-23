@@ -15,8 +15,8 @@ class BubbleSort<T : Comparable>: SortBase<T> {
         get {"O(N^2)"}
     }
     
-    var i : Int = 0
-    var j : Int = 0
+    private var i : Int = 0
+    private var j : Int = 0
     
     override func nextStep() -> [T] {
         let ret1 = For {

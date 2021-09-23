@@ -22,8 +22,8 @@ class HeapSort<T : Comparable>: SortBase<T> {
         get {"O(NlogN)"}
     }
     
-    var f : Int = 0 //first
-    var s : Int = 9 //second
+    private var f : Int = 0 //first
+    private var s : Int = 9 //second
     override func start() {
         //初始化
         f = count / 2 - 1 //最后一个非叶子结点
@@ -99,8 +99,8 @@ class HeapSort<T : Comparable>: SortBase<T> {
     
     
     //堆调整
-    var i : Int = 0 //记录传入值
-    var h : Int = 0 //内部循环
+    private var i : Int = 0 //记录传入值
+    private var h : Int = 0 //内部循环
     func heapify(length : Int) -> ForResult {
         return For {
             h < length
