@@ -61,8 +61,8 @@ class QuickSort<T : Comparable>: SortBase<T> {
             }
             if dataList[current] <= dataList[right] {
                 sortted += 1
-                if current == sortted {
-                    return .finish //只有两个点，且已经排列好的情况下，会浪费一步
+                if !showChecking && current == sortted {
+                    return .next //交换自身
                 }
 //                let c = dataList.remove(at: current)
 //                dataList.insert(c, at: sortted)
