@@ -16,15 +16,10 @@ class QuickSort<T : Comparable>: SortBase<T> {
     }
     
     private var funcDatas : [(Int, Int)] = [] //current, sortted
-    private var i : Int = 0 //当前函数调用序数
-    
-    override func start() {
-        funcDatas.removeAll()
-        i = 0
-    }
+    private var i : Int = -1 //当前函数调用序数
     
     override func nextStep() -> [T] {
-        i = 0
+        i = -1
         let ret = quickSort(left: 0, right: count - 1)
         
         if ret == .finish {
@@ -37,17 +32,17 @@ class QuickSort<T : Comparable>: SortBase<T> {
     }
     
     private func quickSort(left : Int, right : Int) -> ForResult {
+        guard left < right else {
+            return .finish
+        }
+        
+        i += 1
         var current : Int = left
         var sortted : Int = left - 1
         if i < funcDatas.count {
             (current, sortted) = funcDatas[i]
         }else{
             funcDatas.append((current, sortted))
-        }
-        i += 1
-        
-        guard left < right else {
-            return .finish
         }
         
         let retF = For {
@@ -72,13 +67,13 @@ class QuickSort<T : Comparable>: SortBase<T> {
                     currentCheck = sortted
                 }
                 current += 1
-                funcDatas[i - 1] = ((current, sortted))
+                funcDatas[i] = ((current, sortted))
                 return .pause
             }else{
                 if showChecking {
                     //暂停一步
                     current += 1
-                    funcDatas[i - 1] = ((current, sortted))
+                    funcDatas[i] = ((current, sortted))
                     return .pause
                 }else{
                     return .next

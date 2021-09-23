@@ -29,7 +29,6 @@ class HeapSort<T : Comparable>: SortBase<T> {
         f = count / 2 - 1 //最后一个非叶子结点
         i = f
         h = i * 2 + 1
-        
     }
     
     //第二次初始化
