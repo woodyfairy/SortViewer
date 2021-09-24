@@ -51,9 +51,9 @@ class RadixSort<T : Comparable>: SortBase<T> {
         }
     }
     
-    var f : Int = 0 //first
-    var s : Int = 0 //second
-    var pos : Int = 0 //重构数组的位置
+    private var f : Int = 0 //first
+    private var s : Int = 0 //second
+    private var pos : Int = 0 //重构数组的位置
     override func nextStep() -> [T] {
         let ret = For {
             i < maxDigit
