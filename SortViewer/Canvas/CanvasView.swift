@@ -73,8 +73,11 @@ class CanvasView: UIView {
             return CGPoint(x: self.bounds.width/2, y: self.bounds.height/2)
         }
         let percent : CGFloat = CGFloat(index) / CGFloat(number)
-        let valuePerent : CGFloat = CGFloat(value) / CGFloat(number)
-        return CGPoint(x: padding.left + (self.bounds.width - padding.left - padding.right) * percent, y: self.bounds.height - padding.bottom - (self.bounds.height - padding.top - padding.bottom) * valuePerent)
+        let valuePercent : CGFloat = CGFloat(value) / CGFloat(number)
+        return getPos(xPercent: percent, yPercent: valuePercent)
+    }
+    private func getPos(xPercent : CGFloat, yPercent : CGFloat) -> CGPoint {
+        return CGPoint(x: padding.left + (self.bounds.width - padding.left - padding.right) * xPercent, y: self.bounds.height - padding.bottom - (self.bounds.height - padding.top - padding.bottom) * yPercent)
     }
     
     //start sort
@@ -108,7 +111,11 @@ class CanvasView: UIView {
                 let p = listPoints[i]
                 if p.preIndex != i {
                     p.preIndex = i
-                    p.animteTo(getPos(index: i, value: p.value)) 
+                    if p.xPercent >= 0 && p.yPercent >= 0 {
+                        p.animteTo(getPos(xPercent: p.xPercent, yPercent: p.yPercent))
+                    }else{
+                        p.animteTo(getPos(index: i, value: p.value))
+                    }
                 }
             }
         }

@@ -13,6 +13,9 @@ class Point : Comparable {
     var color : UIColor
     var prePos : CGPoint
     var currentPos : CGPoint
+    //制定xy坐标比例，非-1时有效
+    var xPercent : CGFloat = -1
+    var yPercent : CGFloat = -1
     
     //排序
     static func == (lhs: Point, rhs: Point) -> Bool {

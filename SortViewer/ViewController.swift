@@ -8,7 +8,7 @@
 import UIKit
 
 class Option {
-    var number : Int = 20
+    var number : Int = 30
     var sortStepTime : TimeInterval = 0.05
 //    var number : Int = 10
 //    var sortStepTime : TimeInterval = 1
@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         InsertionSort<Point>.self,
         HeapSort<Point>.self,
         QuickSort<Point>.self,
+        RadixSort<Point>.self,
     ]
     
     override func viewDidLoad() {
