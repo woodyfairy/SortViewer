@@ -18,6 +18,7 @@ class InsertionSort<T : Comparable>: SortBase<T> {
     //初始化
     private var i : Int = 1
     private var j : Int = 0
+    private var swaped : Bool = false
     
     override func nextStep() -> [T] {
         let ret1 = For {
@@ -25,6 +26,7 @@ class InsertionSort<T : Comparable>: SortBase<T> {
         } _: {
             i += 1
             j = i - 1
+            swaped = false
         } _: {
             let ret2 = For {
                 //倒序比较：如果默认就比最大的大就不用执行了，如果从0开始的直接比第一个还小，不执行就不对了
@@ -36,17 +38,6 @@ class InsertionSort<T : Comparable>: SortBase<T> {
                     checkingIndex = i
                     currentCheck = j
                 }
-                //最后一个
-                if j == 0 || dataList[i] >= dataList[j - 1] {
-                    if showChecking {
-                        checkingIndex = j //插入过来
-                        currentCheck = j + 1 //之前的后移
-                    }
-                    let temp = dataList.remove(at: i)
-                    dataList.insert(temp, at: j)
-                    j -= 1
-                    return .pause
-                }
                 
                 if showChecking {
                     j -= 1
@@ -54,6 +45,18 @@ class InsertionSort<T : Comparable>: SortBase<T> {
                 }else{
                     return .next
                 }
+            }
+            
+            //最后结束要停一步
+            if ret2 == .finish && !swaped {
+                swaped = true
+                let temp = dataList.remove(at: i)
+                dataList.insert(temp, at: j + 1) //插入到上一个之前
+                if showChecking {
+                    checkingIndex = j + 1 //插入过来
+                    currentCheck = j
+                }
+                return .pause
             }
             
             return ret2

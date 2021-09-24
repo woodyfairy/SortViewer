@@ -21,6 +21,7 @@
 		88638E4E26F2F14D00D68C1F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88638E4D26F2F14D00D68C1F /* Point.swift */; };
 		88906B4C26F57E0000642ED4 /* SelectionSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88906B4B26F57E0000642ED4 /* SelectionSort.swift */; };
 		88906B4E26F5AFB200642ED4 /* InsertionSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88906B4D26F5AFB200642ED4 /* InsertionSort.swift */; };
+		8894FE4F26FDC29D00FB02B5 /* ShellSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8894FE4E26FDC29D00FB02B5 /* ShellSort.swift */; };
 		88B2760B26FACB1200965317 /* HeapSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2760A26FACB1200965317 /* HeapSort.swift */; };
 		88B2760D26FB37A200965317 /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B2760C26FB37A200965317 /* QuickSort.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		88638E4D26F2F14D00D68C1F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		88906B4B26F57E0000642ED4 /* SelectionSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSort.swift; sourceTree = "<group>"; };
 		88906B4D26F5AFB200642ED4 /* InsertionSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertionSort.swift; sourceTree = "<group>"; };
+		8894FE4E26FDC29D00FB02B5 /* ShellSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellSort.swift; sourceTree = "<group>"; };
 		88B2760A26FACB1200965317 /* HeapSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeapSort.swift; sourceTree = "<group>"; };
 		88B2760C26FB37A200965317 /* QuickSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSort.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 				88B2760A26FACB1200965317 /* HeapSort.swift */,
 				88B2760C26FB37A200965317 /* QuickSort.swift */,
 				88231B5A26FC7E67008D6D1C /* RadixSort.swift */,
+				8894FE4E26FDC29D00FB02B5 /* ShellSort.swift */,
 			);
 			path = SortFunctions;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				88906B4E26F5AFB200642ED4 /* InsertionSort.swift in Sources */,
 				88231B5B26FC7E67008D6D1C /* RadixSort.swift in Sources */,
 				88638E4E26F2F14D00D68C1F /* Point.swift in Sources */,
+				8894FE4F26FDC29D00FB02B5 /* ShellSort.swift in Sources */,
 				88638E3726F2ED1300D68C1F /* AppDelegate.swift in Sources */,
 				88638E4C26F2F13E00D68C1F /* CanvasView.swift in Sources */,
 				8844AF4526F43909001C0674 /* SortBase.swift in Sources */,

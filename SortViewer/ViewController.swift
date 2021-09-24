@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         HeapSort<Point>.self,
         QuickSort<Point>.self,
         RadixSort<Point>.self,
+        ShellSort<Point>.self,
     ]
     
     override func viewDidLoad() {
