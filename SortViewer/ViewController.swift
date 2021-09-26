@@ -10,7 +10,7 @@ import UIKit
 class Option {
     var number : Int = 30
     var sortStepTime : TimeInterval = 0.05
-//    var number : Int = 10
+//    var number : Int = 4
 //    var sortStepTime : TimeInterval = 1
     var showChecking : Bool = true
 }
@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         QuickSort<Point>.self,
         RadixSort<Point>.self,
         ShellSort<Point>.self,
+        MergeSort<Point>.self,
     ]
     
     override func viewDidLoad() {

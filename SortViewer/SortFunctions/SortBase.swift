@@ -47,7 +47,7 @@ class SortBase<T : Comparable> {
             case .pause:
                 return .pause
             default:
-                then()
+                then() //next/finish 都是进行下次循环(For嵌套时，内层for返回finish，这里不能return finish)
                 break
             }
         }
