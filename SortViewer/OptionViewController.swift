@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol OptionViewControllerDelegate : AnyObject {
+    func optionViewDidOk(option : Option)
+}
+
 class OptionViewController: UIViewController {
-    weak var option : Option? = nil
+    var option : Option? = nil
+    weak var delegate : OptionViewControllerDelegate? = nil
     
     @IBOutlet weak var numberInput: UITextField!
     @IBOutlet weak var timeInput: UITextField!
@@ -48,6 +53,13 @@ class OptionViewController: UIViewController {
     @objc private func setShowCheck(){
         print ("showCheck : \(showCheckSwitch.isOn)")
         option?.showChecking = showCheckSwitch.isOn
+    }
+    
+    @IBAction func clickOK(_ sender: Any) {
+        if let option = option {
+            delegate?.optionViewDidOk(option: option)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

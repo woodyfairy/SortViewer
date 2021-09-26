@@ -64,6 +64,9 @@ class QuickSort<T : Comparable>: SortBase<T> {
                 dataList.swapAt(sortted, current)
 //                print("swap: \(current), \(sortted)")
                 if showChecking{
+                    if currentCheck == right {
+                        checkingIndex = sortted //最后一个，检查自身
+                    }
                     currentCheck = sortted
                 }
                 current += 1

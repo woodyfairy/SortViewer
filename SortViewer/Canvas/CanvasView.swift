@@ -13,6 +13,7 @@ class CanvasView: UIView {
     var fadeScale : CGFloat = 0.85
     var padding : UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
     var sortStepTime : TimeInterval = 0.01
+    var autoPlay : Bool = true
     
     
     //MARK:- TouchTest
@@ -90,14 +91,19 @@ class CanvasView: UIView {
         sortFunction = sortFunctionType.init(dataList: self.listPoints, showChecking: showChecking)
         sortFunction?.start()
         
-        timer = Timer(timeInterval: sortStepTime, target: self, selector: #selector(nextStep), userInfo: nil, repeats: true)
+        timer = Timer(timeInterval: sortStepTime, target: self, selector: #selector(timerStep), userInfo: nil, repeats: true)
         RunLoop.main.add(timer!, forMode: .common)
     }
-    @objc private func nextStep(){
+    @objc private func timerStep(){
         if self.superview == nil {
             stop()
             return
         }
+        if autoPlay {
+            nextStep()
+        }
+    }
+    func nextStep(){
         //print("next")
         if let sortFunction = sortFunction {
             if sortFunction.isFinished {

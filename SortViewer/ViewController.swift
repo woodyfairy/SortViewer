@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Option {
+struct Option {
     var number : Int = 30
     var sortStepTime : TimeInterval = 0.05
 //    var number : Int = 4
@@ -18,6 +18,7 @@ class Option {
 class ViewController: UIViewController {
     @IBOutlet weak var canvas: CanvasView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var autoPlayBtn: UIButton!
     
     var option : Option = Option()
     
@@ -34,6 +35,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.refreshAutoPlayButton()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -47,13 +49,35 @@ class ViewController: UIViewController {
         canvas.reset(number: option.number)
         canvas.sortStepTime = option.sortStepTime
     }
+    @IBAction func autoPlay(_ sender: Any) {
+        canvas.autoPlay = !canvas.autoPlay
+        refreshAutoPlayButton()
+    }
+    @IBAction func next(_ sender: Any) {
+        if canvas.autoPlay {
+            canvas.autoPlay = false
+            refreshAutoPlayButton()
+        }else{
+            canvas.nextStep()
+        }
+    }
+    private func refreshAutoPlayButton(){
+        autoPlayBtn.tintColor = canvas.autoPlay ? .systemBlue : .black
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showOption" {
             if let optionVC = segue.destination as? OptionViewController {
+                optionVC.delegate = self
                 optionVC.option = self.option
             }
         }
+    }
+}
+extension ViewController : OptionViewControllerDelegate {
+    func optionViewDidOk(option: Option) {
+        self.option = option
+        self.reset()
     }
 }
 
