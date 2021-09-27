@@ -9,7 +9,7 @@ import Foundation
 
 class MergeSort<T : Comparable>: SortBase<T> {
     class override var name : String {
-        get {"归并排序"} //https://www.cnblogs.com/chengxiao/p/6194356.html
+        get {NSLocalizedString("MergeSort", comment: "归并排序")} //https://www.cnblogs.com/chengxiao/p/6194356.html
     }
     override class var timeComplexity: String {
         get {"O(NlogN)"}

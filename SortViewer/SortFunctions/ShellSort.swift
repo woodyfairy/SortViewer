@@ -9,7 +9,7 @@ import Foundation
 
 class ShellSort<T : Comparable>: SortBase<T> {
     class override var name : String {
-        get {"希尔排序"} //https://blog.csdn.net/daiyudong2020/article/details/52445044
+        get {NSLocalizedString("ShellSort", comment: "希尔排序")} //https://blog.csdn.net/daiyudong2020/article/details/52445044
     }
     override class var timeComplexity: String {
         get {"O(N^(1.3-2))"} //?

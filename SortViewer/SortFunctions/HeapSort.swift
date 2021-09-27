@@ -16,7 +16,7 @@ import Foundation
 
 class HeapSort<T : Comparable>: SortBase<T> {
     class override var name : String {
-        get {"堆排序"}
+        get {NSLocalizedString("HeapSort", comment: "堆排序")}
     }
     override class var timeComplexity: String {
         get {"O(NlogN)"}
@@ -37,7 +37,7 @@ class HeapSort<T : Comparable>: SortBase<T> {
         if inited2 {
             return
         }
-        print("init2")
+        //print("init2")
         s = count - 1
         i = 0
         h = i * 2 + 1

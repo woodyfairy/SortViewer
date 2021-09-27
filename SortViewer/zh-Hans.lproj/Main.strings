@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "ShowCheck"; ObjectID = "GMF-UA-5cV"; */
+"GMF-UA-5cV.text" = "显示比较";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "QFC-sA-57z"; */
+"QFC-sA-57z.normalTitle" = "确定";
+
+/* Class = "UILabel"; text = "Number"; ObjectID = "Vym-cz-efg"; */
+"Vym-cz-efg.text" = "排序数量";
+
+/* Class = "UILabel"; text = "StepTime"; ObjectID = "oUi-ua-o2u"; */
+"oUi-ua-o2u.text" = "每步间隔";

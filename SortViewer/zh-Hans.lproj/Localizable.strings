@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  SortViewer
+
+  Created by fairy on 2021/9/27.
+  
+*/
+
+"BubbleSort" = "冒泡排序";
+"SelectionSort" = "选择排序";
+"InsertionSort" = "插入排序";
+"HeapSort" = "堆排序";
+"QuickSort" = "快速排序";
+"RadixSort" = "基数排序";
+"ShellSort" = "希尔排序";
+"MergeSort" = "归并排序";

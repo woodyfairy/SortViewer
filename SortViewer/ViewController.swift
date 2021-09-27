@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var autoPlayBtn: UIButton!
     
     var option : Option = Option()
+    var currentIndex : Int = -1
     
     let sortTypes : [SortBase<Point>.Type] = [
         BubbleSort<Point>.self,
@@ -37,6 +38,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.refreshAutoPlayButton()
         
+        tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -48,6 +50,8 @@ class ViewController: UIViewController {
     @IBAction func reset(_ sender: Any? = nil) {
         canvas.reset(number: option.number)
         canvas.sortStepTime = option.sortStepTime
+        currentIndex = -1
+        tableView.reloadData()
     }
     @IBAction func autoPlay(_ sender: Any) {
         canvas.autoPlay = !canvas.autoPlay
@@ -91,21 +95,26 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         var cell = tableView.dequeueReusableCell(withIdentifier: "sortCell")
         if cell == nil {
             cell = UITableViewCell(style: .value1, reuseIdentifier: "sortCell")
+            cell?.selectionStyle = .none
         }
         let type = sortTypes[indexPath.row]
         cell?.textLabel?.text = type.name
+        cell?.textLabel?.textColor = (indexPath.row == currentIndex) ? .systemBlue : .black
         cell?.detailTextLabel?.text = type.timeComplexity
         
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.selectRow(at: nil, animated: true, scrollPosition: .none)
         let type = sortTypes[indexPath.row]
         if canvas.isRunning {
             self.reset()
         }
         canvas.startRunning(sortFunctionType: type, showChecking: option.showChecking)
+        
+        currentIndex = indexPath.row
+        self.tableView.reloadData()
+        //tableView.selectRow(at: nil, animated: true, scrollPosition: .none)
     }
     
 }

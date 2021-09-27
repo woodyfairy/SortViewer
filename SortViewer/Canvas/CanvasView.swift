@@ -11,7 +11,7 @@ class CanvasView: UIView {
     //MARK:- Options
     var pointSize : CGFloat = 10
     var fadeScale : CGFloat = 0.85
-    var padding : UIEdgeInsets = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
+    var padding : UIEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     var sortStepTime : TimeInterval = 0.01
     var autoPlay : Bool = true
     

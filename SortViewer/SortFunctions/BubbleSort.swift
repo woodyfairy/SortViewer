@@ -9,7 +9,7 @@ import Foundation
 
 class BubbleSort<T : Comparable>: SortBase<T> {
     class override var name : String {
-        get {"冒泡排序"}
+        get {NSLocalizedString("BubbleSort", comment: "冒泡排序")}
     }
     override class var timeComplexity: String {
         get {"O(N^2)"}

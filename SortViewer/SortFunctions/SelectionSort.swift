@@ -9,7 +9,7 @@ import Foundation
 
 class SelectionSort<T : Comparable>: SortBase<T> {
     class override var name : String {
-        get {"选择排序"}
+        get {NSLocalizedString("SelectionSort", comment: "选择排序")}
     }
     override class var timeComplexity: String {
         get {"O(N^2)"}
