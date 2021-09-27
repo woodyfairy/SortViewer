@@ -77,6 +77,9 @@ class ShellSort<T : Comparable>: SortBase<T> {
                 //最后结束要停一步
                 if ret2 == .finish && !swaped {
                     swaped = true
+                    if j == i - 1 && !showChecking {
+                        return .finish //直接比最后一个大，不用交换，不显示check则直接跳过
+                    }
                     let temp = dataList.remove(at: i)
                     dataList.insert(temp, at: j + gap) //插入到上一个之前
                     if showChecking {

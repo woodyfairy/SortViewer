@@ -10,7 +10,7 @@ import UIKit
 struct Option {
     var number : Int = 30
     var sortStepTime : TimeInterval = 0.05
-//    var number : Int = 4
+//    var number : Int = 6
 //    var sortStepTime : TimeInterval = 1
     var showChecking : Bool = true
 }

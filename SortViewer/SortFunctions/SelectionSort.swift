@@ -19,6 +19,7 @@ class SelectionSort<T : Comparable>: SortBase<T> {
     private var i : Int = 0
     private var j : Int = 1
     private var minIndex : Int = 0
+    private var swaped : Bool = false
     
     override func nextStep() -> [T] {
         let ret1 = For {
@@ -27,6 +28,7 @@ class SelectionSort<T : Comparable>: SortBase<T> {
             i += 1
             minIndex = i
             j = i
+            swaped = false
         } _: {
             let ret2 = For {
                 j < count
@@ -42,25 +44,28 @@ class SelectionSort<T : Comparable>: SortBase<T> {
                     minIndex = j
                 }
                 
-                //如果是最后一个，不放在finish里是因为需要暂定绘图，finish不会暂停
-                if j == count - 1 {
-                    checkingIndex = -1
-                    //插入
-//                    let min = dataList.remove(at: minIndex)
-//                    dataList.insert(min, at: i)
-                    //交换
-                    dataList.swapAt(i, minIndex)
-                    
-                    j += 1
-                    return .pause
-                }
-                
                 if showChecking {
                     j += 1
                     return .pause
                 }else{
                     return .next
                 }
+            }
+            
+            //循环结束后进行交换
+            if ret2 == .finish && !swaped {
+                swaped = true
+                //插入
+//                    let min = dataList.remove(at: minIndex)
+//                    dataList.insert(min, at: i)
+                //交换
+                dataList.swapAt(i, minIndex) //这里即使是同一个（第一个比较的既是最小的）也要停一步，因为也经历了一次遍历，这样节奏最合理
+                if showChecking {
+                    checkingIndex = i
+                    currentCheck = -1
+                }
+                                
+                return .pause
             }
             
             return ret2
